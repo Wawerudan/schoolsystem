@@ -17,7 +17,7 @@ def format_phone(number):
 
 def send_at_sms(to, message):
     """Send SMS via Africa's Talking API"""
-    url = "https://api.sandbox.africastalking.com/version1/messaging"
+    url = "https://api.africastalking.com/version1/messaging"
     headers = {
         "apiKey": settings.AFRICASTALKING_API_KEY,
         "Content-Type": "application/json",
