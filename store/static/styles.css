@@ -1,0 +1,255 @@
+nav{
+    background-color: green;
+    padding:20px;
+    justify-content: space-between;
+    display: flex;
+    color: white;
+
+
+}
+.navs1{
+    position: fixed;
+    top:60px;
+    right:3px;
+    background-color: #ccc;
+    color: black;
+    display: none;
+    width: 120px;
+    height: 90px;
+}
+.x-nav{
+    display: block;
+}
+.container{
+    width: 100%;
+    display: flex;
+   
+}
+.main{
+    width: 83%;
+    
+}
+.side{
+    width: 17%;
+    background-color:#444;
+    color:white;
+    display: block;
+    height: 100vh;
+    cursor: pointer;
+    
+}
+.sides-a{
+    padding:15px 6px;
+    font-size: 20px;
+}
+.dashboard{
+    display:flex;
+    justify-content:space-evenly;
+    margin-left: 10px;
+    
+}
+#dashboard{
+    display:none;
+}
+.box{
+    background-color:white;
+    color:black;
+    font-weight: bold;
+    padding: 20px;
+    margin-top: 10px;
+    width: 200px;
+    box-shadow: 0 2px 3px;
+}
+.box p{
+    color: blue;
+    font-weight: bold;
+}
+.dash{
+    display:flex;
+    margin-top: 60px;
+
+}
+.dashilo h2{
+    margin-left: 160px;
+}
+.dash p{
+    border-bottom: 1px solid #444;
+}
+.dash0{
+    margin-left: 160px;
+    background-color: #ccc;
+    width: 500px;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    box-shadow: 0,5px 9px;
+
+
+}
+.div-dash{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+}
+h4{
+    margin-left: 60px;
+}
+.dash1{
+    width: 300px;
+    margin-left: 50px;
+    background-color: aliceblue;
+   
+}
+
+img{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-left: 80px;
+
+}
+.payment-methods{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+}
+.payment-box{
+ padding: 20px;
+background-color: #ccc;
+color: black;
+margin-top: 10px;
+width: 200px;
+}
+.payment{
+    width: 500px;
+    margin-top: 20px;
+    margin-left:40px;
+    display:none;
+}
+input{
+    width: 400px;
+    padding: 8px;
+}
+button{
+    background-color: green;
+    color:white;
+    border: none;
+    padding: 8px;
+}
+.mpesa-option{
+    margin-top: 20px;
+    margin-left: 40px;
+    display: none;
+    background-color: #ccc;
+    width:500px;
+    height: 300px;
+
+}
+h4{
+    color: green;
+}
+li{
+    text-decoration: none;
+    list-style-type:none;
+    margin-left: 20px;
+}
+.subjects{
+    margin-left: 80px;
+}
+.form-cont{
+   margin-top: 150px;
+   margin-left: 400px;
+   width: 400px;
+   background-color:white;
+}
+.form-cont label{
+    font-weight: bold;
+    margin-top: 10px;
+    font-size: 20px;
+}
+.form-cont input{
+    border-radius: 20px;
+    margin-top: 10px;
+    width: 300px;
+   
+}
+.form-cont button{
+    width: 300px;
+    border-radius: 20px;
+    margin-top: 20px;
+}
+.sendbtn{
+    margin-top:130px;
+    margin-left: 400px;
+    width: 240px;
+    background-color: green;
+    padding: 20px;
+    
+}
+.sendbtn a{
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 24px;
+}
+table {
+  width: 100%; /* Take up the full width of the container */
+  border-collapse: collapse; /* Critical for clean borders */
+  font-family: Arial, sans-serif;
+}
+
+th, td {
+  padding: 12px 15px; /* Spacing inside cells */
+  text-align: left;
+  border-bottom: 1px solid #ddd; /* Light separator lines */
+}
+
+th {
+  background-color: #4CAF50; /* Green header background */
+  color: white;
+  border-top: 1px solid #4CAF50; /* Top border for emphasis */
+}
+
+/* Zebra striping */
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Hover effect */
+tr:hover {
+  background-color: #f1f1f1;
+}
+.sides{
+    display: none;
+}
+.humberger{
+    display:none;
+}
+
+@media (max-width:700px) {
+    .side{
+        display: none;
+    }
+    .sides{
+        display: none;
+    }
+    .main{
+        margin-left: 1px;
+    }
+    .dash{
+        display: block;
+    }
+    .dash1,.dash0{
+        margin-left: 1px;
+        margin-top: 20px;
+        width: 400px;
+    }
+    .humberger{
+    display:block;
+}
+    .dashboard{
+        gap:20px;
+       
+    }
+    .box{
+      
+    }
+    
+}

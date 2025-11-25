@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Portal</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<table class="timetable">
+    <thead>
+        <tr>
+            <th>Day / Time</th>
+            {% for t in time_slots %}
+                <th>{{ t.start_time|time:"H:i" }} - {{ t.end_time|time:"H:i" }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for day, slots in timetable.items %}
+        <tr>
+            <td class="day-name">{{ day }}</td>
+
+            {% for slot in slots %}
+                {% if slot %}
+                    <td>
+                        <strong>{{ slot.subject.name }}</strong><br>
+                        <small>{{ slot.teacher.name }}</small>
+                    </td>
+                {% else %}
+                    <td class="empty">Free</td>
+                {% endif %}
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</body>
+</html>

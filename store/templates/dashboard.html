@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ student.First_name }}'s Dashboard</title>
+</head>
+<body>
+<h2>Welcome, {{ student.First_name }}!</h2>
+<p>Admission No: {{ student.admission_no }}</p>
+<p>Class/Form: {{ student.form }}</p>
+
+<h3>Your Details</h3>
+<ul>
+    <li>Parent No: {{ student.parent_no }}</li>
+    <li>Email: {{ student.email }}</li>
+    <li>Gender: {{ student.gender }}</li>
+</ul>
+
+<a href="{% url 'logout' %}">Logout</a>
+</body>
+</html>

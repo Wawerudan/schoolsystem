@@ -1,0 +1,62 @@
+<table border-collapse: "collapse"; width="100%";>
+  <tr>
+    <th>Student</th>
+    <th>Math</th>
+    <th>English</th>
+    <th>Kiswahili</th>
+    <th>Chemistry</th>
+    <th>Biology</th>
+  </tr>
+
+  {% for student, subjects in results.items %}
+  <tr>
+    
+    <td>{{ student }}</td>
+    <td>{{ subjects.Math|default:"-" }}</td>
+    <td>{{ subjects.English|default:"-" }}</td>
+    <td>{{ subjects.Kiswahili|default:"-" }}</td>
+    <td>{{ subjects.Chemistry|default:"-" }}</td>
+    <td>{{ subjects.Biology|default:"-" }}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+<!-- 📈 Chart.js Section -->
+<h3>Performance Visualization</h3>
+<canvas id="resultsChart" style="max-width: 700px;"></canvas>
+
+student-chart
+<h2>Student Performance</h2>
+    <div id="chart-container">
+        <img src="{% url 'student_plot' %}" alt="Average marks per student">
+    </div>
+   !-- 2️⃣ Each student's individual chart -->
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const chartData = JSON.parse('{{ chart_data|escapejs }}');
+
+  // Add random colors for each student
+  chartData.datasets = chartData.datasets.map(ds => ({
+    ...ds,
+    backgroundColor: `hsl(${Math.random() * 360}, 70%, 60%)`
+  }));
+
+  new Chart(document.getElementById('resultsChart'), {
+    type: 'bar',
+    data: chartData,
+    options: {
+      responsive: true,
+      plugins: {
+        title: {
+          display: true,
+          text: 'Student Performance by Subject'
+        },
+        legend: {
+          position: 'bottom'
+        }
+      }
+    }
+  });
+</script>

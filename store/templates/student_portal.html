@@ -1,0 +1,272 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Portal</title>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="name">Waweru Student Portal</div>
+        <div class="nav1">
+            <button onclick="navClick()">{{ student.First_name }} {{ student.surname }}</button>
+        </div>
+    </nav>
+
+    <!-- Dropdown menu -->
+    <div class="navs1" id="navs1">
+        <div class="x-nav">
+            <a href="{% url 'logout' %}">Log out</a>
+            <p>Change password</p>
+        </div>
+    </div>
+    <div class="humberger" onclick="sides()"><i class="fa fa-bars" aria-hidden="true"></i> </div>
+     <div class="sides" id="humberger" >
+            <div onclick="openTab('dashboard')" class="sides-a">Dashboard</div>
+            <div onclick="openTab('finance')" class="sides-a">Finance</div>
+            <div onclick="openTab('academics')" class="sides-a">Academics</div>
+            <div onclick="openTab('registration')" class="sides-a">Subjects</div>
+            <div class="sides-a">Clearance</div>
+            <div class="sides-a">Calendar</div>
+            <div class="sides-a">Downloads</div>
+            <div onclick="openTab('Announcements')" class="sides-a">Announcements</div>
+        </div>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="side">
+            <div onclick="openTab('dashboard')" class="sides-a">Dashboard</div>
+            <div onclick="openTab('finance')" class="sides-a">Finance</div>
+            <div onclick="openTab('academics')" class="sides-a">Academics</div>
+            <div onclick="openTab('registration')" class="sides-a">Subjects</div>
+            <div class="sides-a">Clearance</div>
+            <div class="sides-a">Calendar</div>
+            <div class="sides-a">Downloads</div>
+            <div onclick="openTab('Announcements')" class="sides-a">Announcements</div>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="main" id="main-content">
+
+            <!-- DEFAULT DASHBOARD -->
+            <div class="dashboard">
+                
+                {% for x in finance %}
+                <div class="box">Total Fees:<br><p>{{ x.total_fees }}</p></div>
+                <div class="box">Amount Paid:<br><p>{{ x.amount_paid }}</p></div>
+                <div class="box">Balance:<br><p>{{ x.balance }}</p></div>
+                {% endfor %}
+            </div>
+
+            <div class="dash">
+                <div class="dash1">
+                    <img src="{{ student.image.url }}">
+                    <p>{{ student.First_name }} {{ student.surname }}</p>
+                    <div class="div-dash">
+                        <p><strong>Current Term:</strong></p>
+                        <p>{{ term }}</p>
+                        <p>Level</p>
+                        <p>Form {{ student.form }}</p>
+                    </div>
+                </div>
+
+                <div class="dash0">
+                    <p>Name</p>
+                    <p>{{ student.First_name }} {{ student.surname }}</p>
+
+                    <p>Admission No:</p>
+                    <p>{{ student.admission_no }}</p>
+
+                    <p>Phone number:</p>
+                    <p>{{ student.parent_no }}</p>
+
+                    <p>Gender:</p>
+                    <p>{{ student.gender }}</p>
+
+                    <button>Update profile</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        
+        function openTab(tabName) {
+            // Save tab
+            localStorage.setItem("activeTab", tabName);
+
+            // Load content based on name
+            if (tabName === "dashboard") loadDashboard();
+            if (tabName === "finance") loadFinance();
+            if (tabName === "academics") loadAcademics();
+            if (tabName === "registration") loadRegistration();
+            if (tabName === "Announcements") loadAnnouncements();
+        }
+
+        // Restore last opened tab on reload
+        document.addEventListener("DOMContentLoaded", () => {
+            const savedTab = localStorage.getItem("activeTab") || "dashboard";
+            openTab(savedTab);
+        });
+
+       
+        function loadDashboard() {
+            document.getElementById("main-content").innerHTML = `
+           
+            <div class="dashboard">
+                {% for x in finance %}
+                <div class="box">Total Fees:<br><p>{{ x.total_fees }}</p></div>
+                <div class="box">Amount Paid:<br><p>{{ x.amount_paid }}</p></div>
+                <div class="box">Balance:<br><p>{{ x.balance }}</p></div>
+                {% endfor %}
+            </div>
+
+            <div class="dash">
+                <div class="dash1">
+                    <img src="{{student.image.url}}">
+                    <p>{{ student.First_name }} {{student.surname}}</p>
+                    <div class="div-dash">
+                        <p><strong>Current Term:</strong></p>
+                        <p>{{ term }}</p>
+                        <p>Level</p>
+                        <p>Form {{ student.form }}</p>
+                    </div>
+                </div>
+
+                <div class="dash0">
+                    <p>Name</p>
+                    <p>{{ student.First_name }} {{student.surname}}</p>
+
+                    <p>Admission No:</p>
+                    <p>{{ student.admission_no }}</p>
+
+                    <p>Phone number:</p>
+                    <p>{{ student.parent_no }}</p>
+
+                    <p>Gender:</p>
+                    <p>{{ student.gender }}</p>
+
+                    <button>Update profile</button>
+                </div>
+            </div>`;
+        }
+
+        // ---------------- LOAD FINANCE ----------------
+        function loadFinance() {
+            document.getElementById("main-content").innerHTML = `
+                <h3>Finance Section</h3>
+                {% for x in finance %}
+                <p>Your fee balance is <b>{{ x.balance }}</b></p>
+                {% endfor %}
+
+                <form>
+                    <input type="text" placeholder="Amount to pay">
+                    <button onclick="pay(event)">Pay</button>
+                </form>
+
+                <div class="payment" id="payment-methods">
+                    <p><b>Select payment method</b></p>
+                    <div class="payment-methods">
+                        <div class="payment-box">KCB Bank</div>
+                        <div class="payment-box">Coop Bank</div>
+                        <div class="payment-box">Equity Bank</div>
+                        <div class="payment-box">Absa Bank</div>
+                        <div class="payment-box">Sidian Bank</div>
+                        <div onclick="mpesa()" class="payment-box">M-Pesa</div>
+                    </div>
+                </div>
+
+                <div class="mpesa-option" id="mpesa-options" style="display:none;">
+                    <h4>Payment methods</h4>
+                    <li>Lipa na M-Pesa</li>
+                    <li>Paybill Business No: <b>247247</b></li>
+                    <li>Account: <b>{{ student.admission_no }}</b></li>
+                </div>
+            `;
+        }
+
+        // ---------------- LOAD ACADEMICS ----------------
+        function loadAcademics() {
+            document.getElementById("main-content").innerHTML = `
+            
+                <form method="get" action="{% url 'download_pdf' %}">
+                    <button type="submit">Download PDF</button>
+                </form>
+              <iframe 
+    src="{% url 'students-results' %}?term={{ selected_term }}" 
+    width="100%" 
+    height="600px" 
+    style="border:none;">
+</iframe>
+            `;
+        }
+
+        // ---------------- LOAD SUBJECT REGISTRATION ----------------
+        function loadRegistration() {
+            document.getElementById("main-content").innerHTML = `
+                <h2>Subject Registration</h2>
+
+                <iframe src="{% url 'register' %}" width="70%" height="300px" style="border:none; margin-left:80px;"></iframe>
+
+                <div class="subjects">
+                    {% if report and report.has_reported %}
+                        <p style="color:green;">You have already reported for {{ term }} on {{ report.date_reported }}</p>
+                    {% else %}
+                        <button onclick="window.location.href='{% url 'report' %}'" class="report-btn">
+                            Report for {{ term }}
+                        </button>
+                    {% endif %}
+
+                    <h3>Your Registered Subjects</h3>
+                    <ul>
+                        {% for s in registered_subjects %}
+                        <li>{{ s.subject.name }}</li>
+                        {% empty %}
+                        <p>You have not registered any subjects yet.</p>
+                        {% endfor %}
+                    </ul>
+
+                    <button onclick="window.location.href='{% url 'exam_card' %}'">
+                        Generate Exam Card
+                    </button>
+                </div>
+            `;
+        }
+       function loadAnnouncements() {
+            document.getElementById("main-content").innerHTML = `
+            <div class="sendbtn">
+              <a href="{% url 'send_sms' student.id %}">Send Results Via SMS</a>
+              </div>
+              `;
+        }
+        
+        function mpesa() {
+            let x = document.getElementById("mpesa-options");
+            x.style.display = (x.style.display === "block") ? "none" : "block";
+        }
+
+        function pay(event) {
+            event.preventDefault();
+            let x = document.getElementById("payment-methods");
+            x.style.display = (x.style.display === "block") ? "none" : "block";
+        }
+
+        function navClick() {
+            let x = document.getElementById("navs1");
+            x.style.display = (x.style.display === "block") ? "none" : "block";
+        }
+         function sides() {
+            let x = document.getElementById("humberger");
+            x.style.display = (x.style.display === "block") ? "none" : "block";
+        }
+    </script>
+
+</body>
+</html>
+
+ 

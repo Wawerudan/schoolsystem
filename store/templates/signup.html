@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Portal</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <div class="form-cont">
+<form method="POST">
+  {% csrf_token %}
+  <label>Admission No:</label>
+  <input type="text" name="admission_no" placeholder="Admission Number" required>
+  <label>Password:</label>
+  <input type="password" name="password" placeholder="Create New Password" required>
+  <button type="submit">Set Password</button>
+</form>
+{% for message in messages %}
+<p style="color:red;">{{ message }}</p>
+{% endfor %}
+</div>
+</body>
+</html>

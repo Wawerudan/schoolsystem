@@ -1,0 +1,16 @@
+
+<p>Your Class: {{ student.class_level }}</p>
+
+<form method="POST">
+    {% csrf_token %}
+
+    {% for subject in allowed_subjects %}
+        <label>
+            <input type="checkbox" name="subjects" value="{{ subject.id }}"
+                   {% if subject.id in registered %}checked{% endif %}>
+            {{ subject.name }}
+        </label><br>
+    {% endfor %}
+
+    <button type="submit">Register Subjects</button>
+</form>
