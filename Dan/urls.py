@@ -20,10 +20,20 @@ from store import views
 from django.conf import settings
 from django.conf.urls.static import static
 urlpatterns = [
-    path('', include('store.urls')),
     path('admin/', admin.site.urls),
     path("report/", views.report_start_of_term, name="report"),
-
+    path('login/', views.login_view, name='login'),
+    path('logout/', views.logout_view, name='logout'),
+    path("signup/", views.signup_view, name="signup"),
+    path('', views.student_dashboard, name='student_dashboard'),
+    path('studentchart/', views.student_chart, name="students-dashboard"),
+    path('students-results/', views.results, name='students-results'),
+    path('download-pdf/', views.download_pdf, name='download_pdf'),
+    path('register/', views. register_subjects, name='register'),
+    path("exam-card/", views.generate_exam_card, name="exam_card"),
+    path('timetable/', views.class_timetable, name='class_timetable'),
+    path("timetable/<int:class_id>/", views.class_timetable, name="view_timetable"),
+    path("send-results/", views.send_results_view, name="send_results"),
     path('student-plot/', views.student_performance_plot, name='student_plot'),
  
 
