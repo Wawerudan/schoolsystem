@@ -29,7 +29,7 @@ AUTHENTICATION_BACKENDS = [
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost','127.0.0.1','danstudentsystem.onrender.com']
+ALLOWED_HOSTS = ['localhost','127.0.0.1','danschoolsystem.onrender.com']
 
 
 # Application definition
@@ -165,3 +165,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 import os
 if not DEBUG:  # Render production mode
     STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
