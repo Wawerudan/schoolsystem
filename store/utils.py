@@ -16,21 +16,21 @@ def format_phone(number):
 
 def send_at_sms(to, message):
     """
-    Send SMS via Africa's Talking API.
-    Automatically switches between sandbox (local) and live (deployment).
-    Catches SSL and JSON errors.
+    Send SMS via Africa's Talking API (FORM DATA ONLY).
+    Supports sandbox/live and catches JSON errors.
     """
-    # Sandbox for local testing
     if getattr(settings, "LOCAL_ENV", False):
         print("MOCK SMS:", to, message)
         return {"status": "sent", "mock": True}
 
-    url = "https://api.africastalking.com/version1/messaging"  # live API
+    url = "https://api.africastalking.com/version1/messaging"
+
     headers = {
         "apiKey": settings.AFRICASTALKING_API_KEY,
-        "Content-Type": "application/json",
         "Accept": "application/json",
+        # ❌ DO NOT SET Content-Type manually — AT rejects JSON
     }
+
     payload = {
         "username": settings.AFRICASTALKING_USERNAME,
         "to": to,
@@ -39,9 +39,9 @@ def send_at_sms(to, message):
     }
 
     try:
-        response = requests.post(url, json=payload, headers=headers, timeout=10)
+        # IMPORTANT: data=payload → form-data encoding
+        response = requests.post(url, data=payload, headers=headers, timeout=10)
 
-        # Safely parse JSON
         try:
             data = response.json()
         except ValueError:
@@ -53,10 +53,11 @@ def send_at_sms(to, message):
         if recipients and recipients[0].get("status") == "Success":
             return {"status": "sent"}
 
-        return {"status": "failed", "error": sms_data.get("Message", "Unknown error")}
+        return {"status": "failed", "error": sms_data.get("Message")}
 
     except requests.exceptions.RequestException as e:
         return {"status": "failed", "error": str(e)}
+
 
 
 def send_results_to_all_students(exam):
